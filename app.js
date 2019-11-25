@@ -1,21 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
 
 const app = express();
 const db = mongoose.connect('mongodb://127.0.0.1:27017/devyAPI');
-const devyRouter = express.Router();
 const port = process.env.PORT || 3000;
 const Devy = require('./models/devyModel');
+const devyRouter = require('./routes/devyRouter')(Devy);
 
-devyRouter.route('/devy')
-    .get((req, res) => {
-        Devy.find((err, devys) => {
-            if(err){
-                return res.send(err);
-            }
-            return res.json(devys);
-        });
-    });
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());  
 
 app.use('/api', devyRouter);
 
