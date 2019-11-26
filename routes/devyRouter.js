@@ -1,36 +1,21 @@
 const express = require('express');
+const devysController = require('../controllers/devysController')
 
 function routes(Devy){
     // All songs
     const devyRouter = express.Router();
+    const controller = devysController(Devy);
+
     devyRouter.route('/devy')
-    .post((req, res) => {
-        const devy = new Devy(req.body);
-        
-        devy.save();
-        return res.status(201).json(devy);
-    })
-    .get((req, res) => {
-        const query = {};
-        if(req.query.name){
-            query.name = req.query.name;
-        }
-        Devy.find(query, (err, devy) => {
-            if(err){
-                return res.send(err);
-            }
-            return res.json(devy);
-        });
-    });
+    .post(controller.post)
+    .get(controller.get);
     // Middleware
     devyRouter.use('/devy/:devyId', (req, res, next) => {
         Devy.findById(req.params.devyId, (err, devy) => {
             if(err){
-                console.log("Teringzooi");
                 return res.send(err);
             }
             if(devy){
-                console.log("Kankerzooi");
                 req.devy = devy;
                 return next();
             } else {    
@@ -39,7 +24,19 @@ function routes(Devy){
     });
     // Single song by id
     devyRouter.route('/devy/:devyId')
-        .get((req, res) => res.json(req.devy))
+        .get((req, res) => {
+            const returnDevy = req.devy.toJSON();
+
+            returnDevy.links = {};
+            const band = req.devy.band.replace(/\s/g, '%20');
+            const album = req.devy.album.replace(/\s/g, '%20');
+            const genre = req.devy.genre.replace(/\s/g, '%20');
+            returnDevy.links.FilterByThisBand = `http://${req.headers.host}/api/devy/?band=${band}`;
+            returnDevy.links.FilterByThisAlbum = `http://${req.headers.host}/api/devy/?album=${album}`;
+            returnDevy.links.FilterByThisGenre = `http://${req.headers.host}/api/devy/?genre=${genre}`;
+
+            return res.json(returnDevy);
+        })
         .put((req, res) => {
             const { devy } = req;
             devy.name = req.body.name;
