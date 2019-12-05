@@ -24,6 +24,7 @@ function devysController(Devy) {
                 const newDevy = devy.toJSON();
                 newDevy.links = {};
                 newDevy.links.self = `http://${req.headers.host}/api/devy/${devy._id}`;
+                newDevy.links.collection = `http://${req.headers.host}/api/devy/`;
                 return newDevy;
             });
             return res.json(returnDevys);
