@@ -8,7 +8,8 @@ function routes(Devy){
 
     devyRouter.route('/devy')
     .post(controller.post)
-    .get(controller.get);
+    .get(controller.get)
+    .options(controller.options)
     // Middleware
     devyRouter.use('/devy/:devyId', (req, res, next) => {
         Devy.findById(req.params.devyId, (err, devy) => {
@@ -34,6 +35,7 @@ function routes(Devy){
             returnDevy.links.FilterByThisBand = `http://${req.headers.host}/api/devy/?band=${band}`;
             returnDevy.links.FilterByThisAlbum = `http://${req.headers.host}/api/devy/?album=${album}`;
             returnDevy.links.FilterByThisGenre = `http://${req.headers.host}/api/devy/?genre=${genre}`;
+            returnDevy.links.collection = `http://${req.headers.host}/api/devy/`;
 
             return res.json(returnDevy);
         })
@@ -76,6 +78,12 @@ function routes(Devy){
                 }
                 return res.sendStatus(204);
             });
+        })
+        .options((req, res, next) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+            res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+            res.sendStatus(200);
         });   
     return devyRouter;
 }
