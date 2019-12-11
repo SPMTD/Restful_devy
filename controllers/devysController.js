@@ -44,7 +44,8 @@ function devysController(Devy) {
             const paginations = {pageCount,
                 itemCount,
                 pages: paginate.getArrayPages(req)(3, pageCount, req.query.page)};
-            items.items = returnDevys
+            items.items = {}
+            items.items.item = returnDevys
             // console.log(itemCount);
             return res.json(items), paginations;
         });
@@ -54,7 +55,7 @@ function devysController(Devy) {
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
         res.header('Access-Control-Allow-Content-Type', 'Application/json')
-        return res.send(200);
+        return res.sendStatus(200);
     }    
 
     function pagi(req, res, next) {
