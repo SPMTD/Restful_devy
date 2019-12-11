@@ -3,11 +3,14 @@ const paginate = require('express-paginate');
 function devysController(Devy) {
     function post(req, res) {
         const devy = new Devy(req.body);
-        if(devy.body.name == "" | devy.body.band == "" | devy.body.album == "" | devy.body.genre == "") {
-            return res.status(401);
+        console.log(devy);
+        if(devy.name === null || devy.band === null || devy.album === null || devy.genre === null) {
+            return res.status(400);
         }
+
         devy.save();
-        return res.status(201).json(devy);
+        return res.status(201).json(devy);        
+        
     }
     function get(req, res) {
         const query = {};
@@ -42,7 +45,7 @@ function devysController(Devy) {
                 itemCount,
                 pages: paginate.getArrayPages(req)(3, pageCount, req.query.page)};
             items.items = returnDevys
-            console.log(itemCount);
+            // console.log(itemCount);
             return res.json(items), paginations;
         });
     }
@@ -50,7 +53,7 @@ function devysController(Devy) {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-        res.header('Access-Control-Allow-Content-Type', 'Application/Json')
+        res.header('Access-Control-Allow-Content-Type', 'Application/json')
         return res.send(200);
     }    
 

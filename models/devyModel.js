@@ -4,10 +4,10 @@ const {Schema} = mongoose;
 
 const devyModel =  new Schema(
     {
-        name: {type:String},
-        band: {type:String},
-        album: {type:String},
-        genre: {type:String},
+        name: {type:String, default: null},
+        band: {type:String, default: null},
+        album: {type:String, default: null},
+        genre: {type:String, default: null},
         heard: {type:Boolean, default: false}
     }
 );
