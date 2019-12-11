@@ -3,9 +3,9 @@ const paginate = require('express-paginate');
 function devysController(Devy) {
     function post(req, res) {
         const devy = new Devy(req.body);
-        console.log(devy);
+        // console.log(devy);
         if(devy.name === null || devy.band === null || devy.album === null || devy.genre === null) {
-            return res.sendStatus(400);
+            return res.sendStatus(415);
         }
 
         devy.save();
@@ -55,6 +55,7 @@ function devysController(Devy) {
         res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
         res.header('Access-Control-Allow-Headers', 'Content-Type');
         res.header('Access-Control-Allow-Content-Type', 'Application/json,  x-www-form-urlencoded')
+        console.log(res.header);
         return res.sendStatus(200);
     }    
 

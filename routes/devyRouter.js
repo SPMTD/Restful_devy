@@ -91,6 +91,7 @@ function routes(Devy){
             res.header('Access-Control-Allow-Methods', 'GET, PUT, PATCH, DELETE, OPTIONS');
             res.header('Access-Control-Allow-Headers', 'Content-Type');
             res.header('Access-Control-Allow-Content-Type', 'Application/json,  x-www-form-urlencoded')
+            console.log(res.header);
             res.sendStatus(200);
         });   
     return devyRouter;
