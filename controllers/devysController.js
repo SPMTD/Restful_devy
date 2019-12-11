@@ -50,7 +50,7 @@ function devysController(Devy) {
         });
     }
     function options(req, res, next) {
-        if (!req.header('Access-Control-Allow-Headers', 'Content-Type, Accept')) {
+        if (!res.header('Access-Control-Allow-Headers', 'Content-Type, Accept')) {
             res.sendStatus(416);
         }
         res.header('Access-Control-Allow-Origin', '*');
