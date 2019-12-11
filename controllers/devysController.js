@@ -50,7 +50,7 @@ function devysController(Devy) {
         });
     }
     function options(req, res, next) {
-        if (!res.header('Access-Control-Allow-Accept', 'Application/json,  x-www-form-urlencoded')) {
+        if (!res.header('Access-Control-Allow-Headers', 'Content-Type, Accept')) {
             res.sendStatus(416);
         }
         res.header('Access-Control-Allow-Origin', '*');
