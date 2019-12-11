@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 
 const app = express();
-const db = mongoose.connect('mongodb://145.24.222.59:27017/devyAPI');
+const db = mongoose.connect('mongodb://127.0.0.1:27017/devyAPI');
 const port = process.env.PORT || 3000;
 const Devy = require('./models/devyModel');
 const devyRouter = require('./routes/devyRouter')(Devy);
