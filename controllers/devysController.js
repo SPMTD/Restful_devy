@@ -52,9 +52,9 @@ function devysController(Devy) {
     }
     function options(req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-        res.header('Access-Control-Allow-Content-Type', 'Application/json')
+        res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type');
+        res.header('Access-Control-Allow-Content-Type', 'Application/json,  x-www-form-urlencoded')
         return res.sendStatus(200);
     }    
 
