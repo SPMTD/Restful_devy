@@ -87,6 +87,9 @@ function routes(Devy){
             });
         })
         .options((req, res, next) => {
+            if (!res.header('Access-Control-Allow-Accept', 'Application/json,  x-www-form-urlencoded')) {
+                res.sendStatus(416);
+            }
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
             res.header('Access-Control-Allow-Methods', 'GET, PUT, PATCH, DELETE, OPTIONS');
