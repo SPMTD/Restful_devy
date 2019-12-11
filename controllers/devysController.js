@@ -3,7 +3,9 @@ const paginate = require('express-paginate');
 function devysController(Devy) {
     function post(req, res) {
         const devy = new Devy(req.body);
-        
+        if(devy.body.name == "" | devy.body.band == "" | devy.body.album == "" | devy.body.genre == "") {
+            return res.status(401);
+        }
         devy.save();
         return res.status(201).json(devy);
     }
