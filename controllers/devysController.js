@@ -5,7 +5,7 @@ function devysController(Devy) {
         const devy = new Devy(req.body);
         console.log(devy);
         if(devy.name === null || devy.band === null || devy.album === null || devy.genre === null) {
-            return res.status(400);
+            return res.sendStatus(400);
         }
 
         devy.save();
