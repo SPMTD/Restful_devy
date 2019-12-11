@@ -1,4 +1,5 @@
 const express = require('express');
+const paginate = require('express-paginate');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 
@@ -10,6 +11,8 @@ const devyRouter = require('./routes/devyRouter')(Devy);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());  
+
+app.use(paginate.middleware(10, 50));
 
 app.use('/api', devyRouter);
 
