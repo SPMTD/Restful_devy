@@ -61,7 +61,7 @@ function devysController(Devy) {
         res.header('Access-Control-Allow-Accept', 'application/json,  x-www-form-urlencoded');
         res.header('Allow-Accept', 'application/json, x-www-form-urlencoded');
 
-        if(!res.header('Access-Control-Allow-Headers', 'Content-Type, Accept')) {
+        if(err) {
             return res.sendStatus(416);
         }
 
