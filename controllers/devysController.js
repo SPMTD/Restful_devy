@@ -63,10 +63,11 @@ function devysController(Devy) {
 
         if(!res.header('Allow-Accept', 'application/json, x-www-form-urlencoded') ||
          !res.header('Access-Control-Allow-Accept', 'application/json, x-www-form-urlencoded')) {
-             return res.sendStatus(415);
+            res.sendStatus(400);
+         } else{
+            res.sendStatus(200);
          }
-
-        return res.sendStatus(200);
+        // return res.sendStatus(200);
     }    
 
     function pagi(req, res, next) {
