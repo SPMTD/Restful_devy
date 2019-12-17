@@ -59,12 +59,13 @@ function devysController(Devy) {
         res.header('Access-Control-Allow-Content-Type', 'application/json,  x-www-form-urlencoded');
         res.header('Allow-Content-Type', 'application/json, x-www-form-urlencoded');
         res.header('Access-Control-Allow-Accept', 'application/json,  x-www-form-urlencoded');
-        res.header('Allow-Accept', 'application/json, x-www-form-urlencoded');
+        res.header('Allow-Accept', 'application/json, x-www-form-urlencoded');              
 
-        if(!err) {            
-            return res.sendStatus(415);
-        }        
-        
+        if(!res.header('Allow-Accept', 'application/json, x-www-form-urlencoded') ||
+         !res.header('Access-Control-Allow-Accept', 'application/json, x-www-form-urlencoded')) {
+             return res.sendStatus(415);
+         }
+
         return res.sendStatus(200);
     }    
 
