@@ -61,10 +61,11 @@ function devysController(Devy) {
         res.header('Access-Control-Allow-Accept', 'application/json,  x-www-form-urlencoded');
         res.header('Allow-Accept', 'application/json, x-www-form-urlencoded');
 
-        if(!err) {
-            return res.sendStatus(200);
-        }
-        return res.sendStatus(416);
+        if(!err) {            
+            return res.sendStatus(415);
+        }        
+        
+        return res.sendStatus(200);
     }    
 
     function pagi(req, res, next) {
