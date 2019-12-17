@@ -49,15 +49,17 @@ function devysController(Devy) {
             return res.json(items), paginations;
         });
     }
-    function options(req, res, next) {
-        if (!res.header('Access-Control-Allow-Headers', 'Content-Type, Accept')) {
-            res.sendStatus(416);
-        }
+    function options(req, res, err) {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
         res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
         res.header('Access-Control-Allow-Content-Type', 'Application/json,  x-www-form-urlencoded');
         res.header('Access-Control-Allow-Accept', 'Application/json,  x-www-form-urlencoded');
+
+        if(!res.header('Access-Control-Allow-Headers', 'Content-Type, Accept')) {
+            return res.sendStatus(416);
+        }
+
         return res.sendStatus(200);
     }    
 
