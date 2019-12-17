@@ -50,8 +50,8 @@ function devysController(Devy) {
         });
     }
     function options(req, res, err) {
-        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
         res.header('Allow-Methods', 'GET, POST, OPTIONS');
+        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Allow-Origin', '*');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
