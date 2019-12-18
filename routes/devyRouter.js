@@ -36,7 +36,7 @@ function routes(Devy){
             const album = returnDevy.album.replace(/\s/g, '%20');
             const genre = returnDevy.genre.replace(/\s/g, '%20');
             returnDevy._links.self = {};
-            returnDevy._links.self.href = `http://${req.header.host}/api/devy/${req.body._id}`;
+            returnDevy._links.self.href = `http://${req.header.host}/api/devy/${returnDevy._id}`;
             returnDevy._links.FilterByThisBand = {};
             returnDevy._links.FilterByThisBand.href = `http://${req.headers.host}/api/devy/?band=${band}`;
             returnDevy._links.FilterByThisAlbum = {};
@@ -55,12 +55,16 @@ function routes(Devy){
             devy.album = req.body.album;
             devy.genre = req.body.genre;
             devy.heard = req.body.heard;
-            req.devy.save((err) => {
-                if (err) {
-                    return res.send(err);
-                }
-                return res.json(devy);
-            });
+            if(!devy.name || !devy.band || !devy.album || !devy.genre) {
+                return res.sendStatus(403);
+            } else {
+                req.devy.save((err) => {
+                    if (err) {
+                        return res.send(err);
+                    }
+                    return res.json(devy);
+                });
+            }
         })     
         .patch((req, res) => {
             const { devy } = req;
