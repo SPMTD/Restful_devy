@@ -8,44 +8,14 @@ function devysController(Devy) {
             return res.sendStatus(403);
         }
 
-        devy.save();
-        return res.status(201).json(devy);        
-        
+        devy.save(function (err) {
+            if(err) {
+                res.send(err);
+            } else {
+                return res.send(201).json(devy);
+            }
+        });                
     }
-    // function get(req, res) {
-        // const perPage = req.query.limit || 0;
-        // const page = req.query.start || 1;     
-        // const query = {};
-        // if(req.query.name){
-        //     query.name = req.query.name;
-        // } else if(req.query.band) {
-        //     query.band = req.query.band;
-        // } else if(req.query.album) {
-        //     query.album = req.query.album;
-        // } else if(req.query.genre) {
-        //     query.genre = req.query.genre;
-        // }
-        // Devy.find(query, (err, devy) => {
-        //     if(err){
-        //         return res.send(err);
-        //     }
-        //     devy.skip((perPage * page) - perPage);
-        //     devy.limit(perPage);
-        //     const items = [];
-        //     const returnDevys = devy.map((devy) => {
-        //         const newDevy = devy.toJSON();
-        //         newDevy._links = {};
-        //         newDevy._links.self = {};
-        //         newDevy._links.self.href = `http://${req.headers.host}/api/devy/${devy._id}`;
-        //         newDevy._links.collection = {};
-        //         newDevy._links.collection.href = `http://${req.headers.host}/api/devy/`;
-        //         return newDevy;
-        //     });
-        //     items.items = returnDevys;
-        //     // console.log(itemCount);
-        //     return res.json(items);
-        // });
-    // }
 
     function get(req, res, err) {
         const perPage = req.query.limit || 0;
@@ -106,20 +76,6 @@ function devysController(Devy) {
                     }                    
                 })
             });
-    //         const items = [];
-    //         const returnDevys = devy.map((devy) => {
-    //             const newDevy = devy.toJSON();
-    //             newDevy._links = {};
-    //             newDevy._links.self = {};
-    //             newDevy._links.self.href = `http://${req.headers.host}/api/devy/${devy._id}`;
-    //             newDevy._links.collection = {};
-    //             newDevy._links.collection.href = `http://${req.headers.host}/api/devy/`;
-    //             return newDevy;
-    //         });
-    //         items.item = returnDevys;
-    //         return res.json(items);
-        // console.log(items);
-        // return res.json(items);
     }
 
 

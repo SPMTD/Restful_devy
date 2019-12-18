@@ -43,7 +43,7 @@ function routes(Devy){
             returnDevy._links.FilterByThisGenre.href = `http://${req.headers.host}/api/devy/?genre=${genre}`;
             returnDevy._links.collection = {};
             returnDevy._links.collection.href = `http://${req.headers.host}/api/devy/`;
-
+            
             return res.json(returnDevy);
         })
         .put((req, res) => {
