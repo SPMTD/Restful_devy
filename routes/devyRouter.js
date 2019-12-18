@@ -34,8 +34,8 @@ function routes(Devy){
             const band = req.devy.band.replace(/\s/g, '%20');
             const album = req.devy.album.replace(/\s/g, '%20');
             const genre = req.devy.genre.replace(/\s/g, '%20');
-            returnDevy._links.self = {};
-            returnDevy._links.self.href = `http://${req.header.host}/api/devy/${devy._id}`;
+            // returnDevy._links.self = {};
+            // returnDevy._links.self.href = `http://${req.header.host}/api/devy/${devy._id}`;
             returnDevy._links.FilterByThisBand = {};
             returnDevy._links.FilterByThisBand.href = `http://${req.headers.host}/api/devy/?band=${band}`;
             returnDevy._links.FilterByThisAlbum = {};
