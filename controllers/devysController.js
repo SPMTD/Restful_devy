@@ -1,4 +1,4 @@
-const paginate = require('express-paginate');
+// const paginate = require('express-paginate');
 
 function devysController(Devy) {
     function post(req, res) {
@@ -12,7 +12,44 @@ function devysController(Devy) {
         return res.status(201).json(devy);        
         
     }
-    function get(req, res) {
+    // function get(req, res) {
+        // const perPage = req.query.limit || 0;
+        // const page = req.query.start || 1;     
+        // const query = {};
+        // if(req.query.name){
+        //     query.name = req.query.name;
+        // } else if(req.query.band) {
+        //     query.band = req.query.band;
+        // } else if(req.query.album) {
+        //     query.album = req.query.album;
+        // } else if(req.query.genre) {
+        //     query.genre = req.query.genre;
+        // }
+        // Devy.find(query, (err, devy) => {
+        //     if(err){
+        //         return res.send(err);
+        //     }
+        //     devy.skip((perPage * page) - perPage);
+        //     devy.limit(perPage);
+        //     const items = [];
+        //     const returnDevys = devy.map((devy) => {
+        //         const newDevy = devy.toJSON();
+        //         newDevy._links = {};
+        //         newDevy._links.self = {};
+        //         newDevy._links.self.href = `http://${req.headers.host}/api/devy/${devy._id}`;
+        //         newDevy._links.collection = {};
+        //         newDevy._links.collection.href = `http://${req.headers.host}/api/devy/`;
+        //         return newDevy;
+        //     });
+        //     items.items = returnDevys;
+        //     // console.log(itemCount);
+        //     return res.json(items);
+        // });
+    // }
+
+    function get(req, res, err) {
+        const perPage = req.query.limit || 0;
+        const page = req.query.start || 1;         
         const query = {};
         if(req.query.name){
             query.name = req.query.name;
@@ -23,32 +60,69 @@ function devysController(Devy) {
         } else if(req.query.genre) {
             query.genre = req.query.genre;
         }
-        Devy.find(query, (err, devy) => {
-            if(err){
-                return res.send(err);
-            }
-            const limit = req.query.limit;
-            const offset = req.query.offset;
-            const items = {};
-            const returnDevys = devy.map((devy) => {
-                const newDevy = devy.toJSON();
-                newDevy._links = {};
-                newDevy._links.self = {};
-                newDevy._links.self.href = `http://${req.headers.host}/api/devy/${devy._id}`;
-                newDevy._links.collection = {};
-                newDevy._links.collection.href = `http://${req.headers.host}/api/devy/`;
-                return newDevy;
+        Devy.find({})    
+            .skip((perPage * page) - perPage)
+            .limit(perPage)
+            .exec(function (err, devy) {
+                Devy.countDocuments().exec(function (err, count) {
+                    if (err) {
+                        res.send(err);
+                    }
+                    const items = [];                    
+                    for(i = 0; i < devy.length; i++) {
+                        const item = devy[i].toJSON();
+                        item._links = {
+                            self: {
+                                href: `http://${req.headers.host}/api/devy/${item._id}`
+                            }
+                        };
+                        items.push(item);
+                    }
+                    const collection = {
+                        items: items,
+                        _links: {
+                            self: {
+                                href: `http://${req.headers.host}/api/devy/`
+                            }
+                        },
+                        
+                        pagination: {
+                            currentPage: page,
+                            currentItems: perPage,
+                            totalPages: Math.ceil(count/perPage),
+                            totalItems: count,
+                            _links: {
+                                first: {
+                                    page: 1,
+                                    href: `http://${req.header.host}/api/devy/?start=${page}&limit=${perPage}`
+                                }
+                            }
+                        }
+                    };
+                    if(err){
+                        return res.send(err);
+                    } else{
+                        return res.json(collection);
+                    }                    
+                })
             });
-            const itemCount = devy.count;
-            const pageCount = Math.ceil(devy.count / limit);
-            const paginations = {pageCount,
-                itemCount,
-                pages: paginate.getArrayPages(req)(3, pageCount, req.query.page)};
-            items.items = returnDevys;
-            // console.log(itemCount);
-            return res.json(items), paginations;
-        });
+    //         const items = [];
+    //         const returnDevys = devy.map((devy) => {
+    //             const newDevy = devy.toJSON();
+    //             newDevy._links = {};
+    //             newDevy._links.self = {};
+    //             newDevy._links.self.href = `http://${req.headers.host}/api/devy/${devy._id}`;
+    //             newDevy._links.collection = {};
+    //             newDevy._links.collection.href = `http://${req.headers.host}/api/devy/`;
+    //             return newDevy;
+    //         });
+    //         items.item = returnDevys;
+    //         return res.json(items);
+        // console.log(items);
+        // return res.json(items);
     }
+
+
     function options(req, res, err) {
         res.header('Allow-Methods', 'GET, POST, OPTIONS');
         res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -70,19 +144,7 @@ function devysController(Devy) {
         // return res.sendStatus(200);
     }    
 
-    function pagi(req, res, next) {
-        Devy.find(query, ({limit = req.query.limit, offset = req.query.offset}) => {
-            const itemCount = res.count;
-            const pageCount = Math.ceil(res.count / limit);
-            const pagination = {pageCount,
-                itemCount,
-                pages: paginate.getArrayPages(req)(3, pageCount, req.query.page)};
-            return pagination;
-        });
-        return res.send(pagination);
-    }
-
-    return {post, get, options, pagi};
+    return {post, get, options};
 }
 
 module.exports = devysController;

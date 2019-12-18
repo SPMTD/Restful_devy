@@ -1,11 +1,11 @@
 const express = require('express');
-const paginate = require('express-paginate');
+// const paginate = require('express-paginate');
 const devysController = require('../controllers/devysController')
 
 function routes(Devy){
     // All songs
     const devyRouter = express.Router();
-    devyRouter.use(paginate.middleware(4, 10));
+    // devyRouter.use(paginate.middleware(4, 10));
     const controller = devysController(Devy);
     
     devyRouter.route('/devy')
