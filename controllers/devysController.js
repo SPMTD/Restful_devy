@@ -4,7 +4,7 @@ function devysController(Devy) {
     function post(req, res) {
         const devy = new Devy(req.body);
         // console.log(devy);
-        if(devy.name === null || devy.band === null || devy.album === null || devy.genre === null) {
+        if(!req.body.name || !req.body.band || !req.body.album || !req.body.genre) {
             return res.sendStatus(403);
         }
 
