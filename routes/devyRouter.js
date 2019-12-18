@@ -31,9 +31,9 @@ function routes(Devy){
         .get((req, res) => {
             const returnDevy = req.devy.toJSON();
             returnDevy._links = {};
-            const band = req.devy.band.replace(/\s/g, '%20');
-            const album = req.devy.album.replace(/\s/g, '%20');
-            const genre = req.devy.genre.replace(/\s/g, '%20');
+            const band = req.body.band.replace(/\s/g, '%20');
+            const album = req.body.album.replace(/\s/g, '%20');
+            const genre = req.body.genre.replace(/\s/g, '%20');
             // returnDevy._links.self = {};
             // returnDevy._links.self.href = `http://${req.header.host}/api/devy/${devy._id}`;
             returnDevy._links.FilterByThisBand = {};
