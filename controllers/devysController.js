@@ -12,7 +12,7 @@ function devysController(Devy) {
             if(err) {
                 res.send(err);
             } else {
-                return res.send(201).json(devy);
+                return res.sendStatus(201).json(devy);
             }
         });                
     }
