@@ -5,7 +5,6 @@ const devysController = require('../controllers/devysController')
 function routes(Devy){
     // All songs
     const devyRouter = express.Router();
-    // devyRouter.use(paginate.middleware(4, 10));
     const controller = devysController(Devy);
     
     devyRouter.route('/devy')
@@ -43,7 +42,7 @@ function routes(Devy){
             returnDevy._links.FilterByThisGenre.href = `http://${req.headers.host}/api/devy/?genre=${genre}`;
             returnDevy._links.collection = {};
             returnDevy._links.collection.href = `http://${req.headers.host}/api/devy/`;
-            
+
             return res.json(returnDevy);
         })
         .put((req, res) => {
