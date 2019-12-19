@@ -37,12 +37,12 @@ function routes(Devy){
             const genre = returnDevy.genre.replace(/\s/g, '%20');
             returnDevy._links.self = {};
             returnDevy._links.self.href = `http://${req.header.host}/api/devy/${returnDevy._id}`;
-            returnDevy._links.FilterByThisBand = {};
-            returnDevy._links.FilterByThisBand.href = `http://${req.headers.host}/api/devy/?band=${band}`;
-            returnDevy._links.FilterByThisAlbum = {};
-            returnDevy._links.FilterByThisAlbum.href = `http://${req.headers.host}/api/devy/?album=${album}`;
-            returnDevy._links.FilterByThisGenre = {};
-            returnDevy._links.FilterByThisGenre.href = `http://${req.headers.host}/api/devy/?genre=${genre}`;
+            // returnDevy._links.FilterByThisBand = {};
+            // returnDevy._links.FilterByThisBand.href = `http://${req.headers.host}/api/devy/?band=${band}`;
+            // returnDevy._links.FilterByThisAlbum = {};
+            // returnDevy._links.FilterByThisAlbum.href = `http://${req.headers.host}/api/devy/?album=${album}`;
+            // returnDevy._links.FilterByThisGenre = {};
+            // returnDevy._links.FilterByThisGenre.href = `http://${req.headers.host}/api/devy/?genre=${genre}`;
             returnDevy._links.collection = {};
             returnDevy._links.collection.href = `http://${req.headers.host}/api/devy/`;
 
