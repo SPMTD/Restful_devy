@@ -66,7 +66,7 @@ function devysController(Devy) {
                         },
                         pagination: {
                             currentPage: Number(page),
-                            currentItems: items.length,
+                            currentItems: count.length,
                             totalPages: Math.ceil(count/perPage),
                             totalItems: count,
                             _links: {
