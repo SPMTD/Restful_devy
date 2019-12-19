@@ -17,7 +17,7 @@ function devysController(Devy) {
         });                
     }
 
-    function get(req, res, err, next) {
+    function get(req, res, err) {
         const perPage = req.query.limit;
         const page = req.query.start;
         if (req.query.start === '' || req.query.limit === '') {
