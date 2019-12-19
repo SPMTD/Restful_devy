@@ -24,6 +24,7 @@ function devysController(Devy) {
             perPage = 10;
             page = 0;
         }         
+
         const query = {};
         if(req.query.name){
             query.name = req.query.name;
@@ -34,6 +35,10 @@ function devysController(Devy) {
         } else if(req.query.genre) {
             query.genre = req.query.genre;
         }
+
+        const hostUrl = `http://${req.headers.host}/api/devy/`
+
+
         Devy.find({})    
             .skip((perPage * page) - perPage)
             .limit(perPage)
@@ -61,14 +66,26 @@ function devysController(Devy) {
                         },
                         
                         pagination: {
-                            currentPage: page,
-                            currentItems: perPage,
+                            currentPage: Number(page),
+                            currentItems: items.length,
                             totalPages: Math.ceil(count/perPage),
                             totalItems: count,
                             _links: {
                                 first: {
                                     page: 1,
-                                    href: `http://${req.header.host}/api/devy/?start=${page}&limit=${perPage}`
+                                    href: `${hostUrl}?start=${page}&limit=${perPage}`
+                                },
+                                last: {
+                                    page: Math.ceil(count/perPage),
+                                    href: `${hostUrl}?start=${Math.ceil(count/perPage)}&limit=${perPage}`
+                                },
+                                previous: {
+                                    page: Number(page) - 1 || 1,
+                                    href: `${hostUrl}?start=${Number(page)-1 || 1}&limit=${perPage}`
+                                },
+                                next: {
+                                    page: Number(page) + 1 || Math.ceil(count/perPage),
+                                    href: `${hostUrl}?start=${Number(page)+1}&limit=${perPage}`
                                 }
                             }
                         }
