@@ -7,7 +7,7 @@ function routes(Devy){
     const devyRouter = express.Router();
     const controller = devysController(Devy);
     
-    devyRouter.route('/devy')
+    devyRouter.route('/devy/:start?/:limit?')
     .post(controller.post)
     .get(controller.get)
     .options(controller.options);
