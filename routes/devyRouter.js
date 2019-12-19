@@ -103,7 +103,7 @@ function routes(Devy){
             }
         }); 
     
-    devyRouter.route('/devy/:start?/:limit?')
+    devyRouter.route('/devy/:start/:limit')
     .post(controller.post)
     .get(controller.get)
     .options(controller.options);
