@@ -64,10 +64,9 @@ function devysController(Devy) {
                                 href: `http://${req.headers.host}/api/devy/`
                             }
                         },
-                        
                         pagination: {
                             currentPage: Number(page),
-                            currentItems: devy.length,
+                            currentItems: items.length,
                             totalPages: Math.ceil(count/perPage),
                             totalItems: count,
                             _links: {
