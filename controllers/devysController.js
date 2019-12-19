@@ -1,4 +1,5 @@
-// const paginate = require('express-paginate');
+// const paginate = require('express-paginate')
+
 
 function devysController(Devy) {
     function post(req, res) {
@@ -17,10 +18,7 @@ function devysController(Devy) {
         });                
     }
 
-    function get(req, res, err) {
-        const perPage = req.query.limit;
-        const page = req.query.start;      
-
+    function get(req, res, err) {    
         const query = {};
         if(req.query.name){
             query.name = req.query.name;
@@ -33,19 +31,23 @@ function devysController(Devy) {
         }
 
         const hostUrl = `http://${req.headers.host}/api/devy/`
+        let perPage = parseInt(req.query.limit);
+        let page = parseInt(req.query.start);  
 
         if (req.query.start === '' || req.query.limit === '') {
             perPage = 10;
             page = 0;
         }   
+        console.log(perPage, page);
         Devy.find({})    
             .skip((perPage * page) - perPage)
             .limit(perPage)
             .exec(function (err, devy) {
-                Devy.countDocuments().exec(function (err, count) {
-                    if (err) {
-                        res.send(err);
+                Devy.countDocuments().exec(function (page, perPage) {
+                    if(err) {
+                        return res.send(err);
                     }
+                    const count = devy.length;
                     const items = [];                    
                     for(i = 0; i < devy.length; i++) {
                         const item = devy[i].toJSON();
@@ -63,15 +65,15 @@ function devysController(Devy) {
                                 href: `http://${req.headers.host}/api/devy/`
                             }
                         },
-                        pagination: {
+                        pagination: {                            
                             currentPage: Number(page),
-                            currentItems: count.length,
+                            currentItems: items.length,
                             totalPages: Math.ceil(count/perPage),
-                            totalItems: count,
+                            totalItems: Number(count),
                             _links: {
                                 first: {
                                     page: 1,
-                                    href: `${hostUrl}?start=${page}&limit=${perPage}`
+                                    href: `${hostUrl}?start=${Number(page)}&limit=${perPage}`
                                 },
                                 last: {
                                     page: Math.ceil(count/perPage),

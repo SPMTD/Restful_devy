@@ -1,9 +1,8 @@
 const express = require('express');
-// const paginate = require('express-paginate');
 const devysController = require('../controllers/devysController')
 
 function routes(Devy){
-    // All songs
+    // Variable setup
     const devyRouter = express.Router();
     const controller = devysController(Devy);
     
@@ -28,20 +27,20 @@ function routes(Devy){
             const returnDevy = req.devy.toJSON();
             console.log(returnDevy);
             returnDevy._links = {};
-            const band = returnDevy.band.replace(/\s/g, '%20');
-            const album = returnDevy.album.replace(/\s/g, '%20');
-            const genre = returnDevy.genre.replace(/\s/g, '%20');
+            // const band = returnDevy.band.replace(/\s/g, '%20');
+            // const album = returnDevy.album.replace(/\s/g, '%20');
+            // const genre = returnDevy.genre.replace(/\s/g, '%20');
             returnDevy._links.self = {};
             returnDevy._links.self.href = `http://${req.headers.host}/api/devy/${returnDevy._id}`;
-            returnDevy._links.FilterByThisBand = {};
-            returnDevy._links.FilterByThisBand.href = `http://${req.headers.host}/api/devy/?band=${band}`;
-            returnDevy._links.FilterByThisAlbum = {};
-            returnDevy._links.FilterByThisAlbum.href = `http://${req.headers.host}/api/devy/?album=${album}`;
-            returnDevy._links.FilterByThisGenre = {};
-            returnDevy._links.FilterByThisGenre.href = `http://${req.headers.host}/api/devy/?genre=${genre}`;
+            // returnDevy._links.FilterByThisBand = {};
+            // returnDevy._links.FilterByThisBand.href = `http://${req.headers.host}/api/devy/?band=${band}`;
+            // returnDevy._links.FilterByThisAlbum = {};
+            // returnDevy._links.FilterByThisAlbum.href = `http://${req.headers.host}/api/devy/?album=${album}`;
+            // returnDevy._links.FilterByThisGenre = {};
+            // returnDevy._links.FilterByThisGenre.href = `http://${req.headers.host}/api/devy/?genre=${genre}`;
             returnDevy._links.collection = {};
             returnDevy._links.collection.href = `http://${req.headers.host}/api/devy/`;
-
+            
             return res.json(returnDevy);
         })
         .put((req, res) => {
@@ -102,7 +101,7 @@ function routes(Devy){
                 return res.sendStatus(200);
             }
         }); 
-    
+    // All songs
     devyRouter.route('/devy/:start?/:limit?')
     .post(controller.post)
     .get(controller.get)
