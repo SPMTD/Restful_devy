@@ -7,11 +7,6 @@ function routes(Devy){
     const devyRouter = express.Router();
     const controller = devysController(Devy);
     
-    devyRouter.route('/devy/:start?/:limit?')
-    .post(controller.post)
-    .get(controller.get)
-    .options(controller.options);
-
     // Middleware
     devyRouter.use('/devy/:devyId', (req, res, next) => {
         Devy.findById(req.params.devyId, (err, devy) => {
@@ -106,7 +101,13 @@ function routes(Devy){
                 res.setHeader('Access-Control-Allow-Accept', 'Application/json,  x-www-form-urlencoded');
                 return res.sendStatus(200);
             }
-        });   
+        }); 
+    
+    devyRouter.route('/devy/:start?/:limit?')
+    .post(controller.post)
+    .get(controller.get)
+    .options(controller.options);
+  
     return devyRouter;
 }
 
