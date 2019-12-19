@@ -94,26 +94,28 @@ function routes(Devy){
             });
         })
         .options((req, res, next) => {
-            res.header('Allow-Methods', 'GET, POST, OPTIONS');
-            res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-            res.header('Access-Control-Allow-Origin', '*');
-            res.header('Allow-Origin', '*');
-            res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
-            res.header('Allow-Header', 'Content-Type, Accept')
-            res.header('Access-Control-Allow-Content-Type', 'application/json,  x-www-form-urlencoded');
-            res.header('Allow-Content-Type', 'application/json, x-www-form-urlencoded');
-            res.header('Access-Control-Allow-Accept', 'application/json,  x-www-form-urlencoded');
-            res.header('Allow-Accept', 'application/json, x-www-form-urlencoded');  
-            console.log(res.header);
-
-            if(!res.header('Allow-Accept', 'application/json, x-www-form-urlencoded') ||
-            !res.header('Access-Control-Allow-Accept', 'application/json, x-www-form-urlencoded')) {
-                res.sendStatus(400);
-            } else{
-                res.sendStatus(200);
-            }
-
+            // res.header('Allow-Methods', 'GET, POST, OPTIONS');
+            // res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+            // res.header('Access-Control-Allow-Origin', '*');
+            // res.header('Allow-Origin', '*');
+            // res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+            // res.header('Allow-Header', 'Content-Type, Accept')
+            // res.header('Access-Control-Allow-Content-Type', 'application/json,  x-www-form-urlencoded');
+            // res.header('Allow-Content-Type', 'application/json, x-www-form-urlencoded');
+            // res.header('Access-Control-Allow-Accept', 'application/json,  x-www-form-urlencoded');
+            // res.header('Allow-Accept', 'application/json, x-www-form-urlencoded');  
             // return res.sendStatus(200);
+            if (!res.header('Access-Control-Allow-Headers', 'Content-Type, Accept , Content-Type, Application/json, Content-Type, Application/x-www-form-urlencoded')) {
+                res.sendStatus(416);
+            } else {
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS');
+                res.setHeader('Allow', 'GET, PUT, DELETE, OPTIONS');
+                res.setHeader('Access-Control-Allow-Content-Type', 'Application/json,  Application/x-www-form-urlencoded');
+                res.setHeader('Access-Control-Allow-Accept', 'Application/json,  x-www-form-urlencoded');
+                return res.sendStatus(200);
+            }
         });   
     return devyRouter;
 }
