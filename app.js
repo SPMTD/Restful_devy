@@ -1,5 +1,4 @@
 const express = require('express');
-const paginate = require('express-paginate');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 
@@ -12,10 +11,6 @@ const devyRouter = require('./routes/devyRouter')(Devy);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());  
 
-app.use(paginate.middleware(10, 50));
-
-app.use('/api', devyRouter);
-
 app.use(function (req, res, next) {
     if (req.accepts(['application/json', 'application/x-www-form-urlencoded'])) {
         res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,6 +22,8 @@ app.use(function (req, res, next) {
         })
     }
 });
+
+app.use('/api', devyRouter);
 
 app.get('/', (req, res) => {
     res.send('Welcome to my Nodemon API!');
