@@ -80,15 +80,15 @@ function devysController(Devy) {
 
 
     function options(req, res, err) {
-        if (!res.header('Access-Control-Allow-Headers', 'Content-Type, Accept , Content-Type, Application/json, Content-Type, Application/x-www-form-urlencoded')) {
+        if (!res.header('Access-Control-Allow-Headers', 'Content-Type, Accept, Content-Type, Application/json, Content-Type, Application/x-www-form-urlencoded')) {
             res.sendStatus(416);
         } else {
             res.header('Allow-Methods', 'GET, POST, OPTIONS');
             res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Allow-Origin', '*');
-            res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
-            res.header('Allow-Header', 'Content-Type, Accept')
+            res.header('Access-Control-Allow-Headers', 'Content-Type, Accept, Content-Type, Application/json, Content-Type, Application/x-www-form-urlencoded');
+            res.header('Allow-Header', 'Content-Type, Accept, Content-Type, Application/json, Content-Type, Application/x-www-form-urlencoded')
             res.header('Access-Control-Allow-Content-Type', 'application/json,  x-www-form-urlencoded');
             res.header('Allow-Content-Type', 'application/json, x-www-form-urlencoded');
             res.header('Access-Control-Allow-Accept', 'application/json,  x-www-form-urlencoded');
