@@ -19,11 +19,7 @@ function devysController(Devy) {
 
     function get(req, res, err) {
         const perPage = req.query.limit;
-        const page = req.query.start;
-        if (req.query.start === '' || req.query.limit === '') {
-            perPage = 10;
-            page = 0;
-        }         
+        const page = req.query.start;      
 
         const query = {};
         if(req.query.name){
@@ -38,7 +34,10 @@ function devysController(Devy) {
 
         const hostUrl = `http://${req.headers.host}/api/devy/`
 
-
+        if (req.query.start === '' || req.query.limit === '') {
+            perPage = 10;
+            page = 0;
+        }   
         Devy.find({})    
             .skip((perPage * page) - perPage)
             .limit(perPage)
