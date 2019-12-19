@@ -18,8 +18,12 @@ function devysController(Devy) {
     }
 
     function get(req, res, err) {
-        const perPage = req.query.limit || 0;
-        const page = req.query.start || 1;         
+        const perPage = req.query.limit;
+        const page = req.query.start;
+        if (req.query.start === '' || req.query.limit === '') {
+            perPage = 10;
+            page = 0;
+        }         
         const query = {};
         if(req.query.name){
             query.name = req.query.name;
@@ -87,8 +91,8 @@ function devysController(Devy) {
             res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Allow-Origin', '*');
-            res.header('Access-Control-Allow-Headers', 'Content-Type, Accept, Content-Type, Application/json, Content-Type, Application/x-www-form-urlencoded');
-            res.header('Allow-Header', 'Content-Type, Accept, Content-Type, Application/json, Content-Type, Application/x-www-form-urlencoded')
+            res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+            res.header('Allow-Header', 'Content-Type, Accept')
             res.header('Access-Control-Allow-Content-Type', 'application/json,  x-www-form-urlencoded');
             res.header('Allow-Content-Type', 'application/json, x-www-form-urlencoded');
             res.header('Access-Control-Allow-Accept', 'application/json,  x-www-form-urlencoded');
