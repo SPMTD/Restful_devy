@@ -110,6 +110,7 @@ function routes(Devy){
             } else {
                 res.setHeader('Access-Control-Allow-Origin', '*');
                 res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+                res.setHeader("Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
                 res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS');
                 res.setHeader('Allow', 'GET, PUT, DELETE, OPTIONS');
                 res.setHeader('Access-Control-Allow-Content-Type', 'Application/json,  Application/x-www-form-urlencoded');
