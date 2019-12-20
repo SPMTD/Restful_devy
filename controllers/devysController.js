@@ -1,7 +1,6 @@
 function devysController(Devy) {
     function post(req, res) {
         const devy = new Devy(req.body);
-        // console.log(devy);
         if(!req.body.name || !req.body.band || !req.body.album || !req.body.genre) {
             return res.sendStatus(403);
         }
@@ -26,17 +25,6 @@ function devysController(Devy) {
         } else if(req.query.genre) {
             query.genre = req.query.genre;
         }
-
-        // let countAll = Devy.find({}).exec(function(err, devy) {
-        //     Devy.countDocuments().exec(function(err){
-        //         if(err) {
-        //             return res.send(err);
-        //         };
-        //         count = devy.length;
-        //         // console.log(count);
-        //         return count;
-        //     });
-        // });
 
         const hostUrl = `http://${req.headers.host}/api/devy/`
         let perPage = parseInt(req.query.limit);
@@ -110,21 +98,6 @@ function devysController(Devy) {
 
 
     function options(req, res, next) {
-    //     if (!res.header('Access-Control-Allow-Headers', 'Content-Type, Accept, Content-Type, Application/json, Content-Type, Application/x-www-form-urlencoded')) {
-    //         res.sendStatus(416);
-    //     } else {
-    //         res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    //         res.header('Allow-Methods', 'GET, POST, OPTIONS');
-    //         res.header('Access-Control-Allow-Origin', '*');
-    //         res.header('Allow-Origin', '*');
-    //         res.header('Allow-Header', 'Content-Type, Accept')
-    //         res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');            
-    //         res.header('Access-Control-Allow-Content-Type', 'application/json,  x-www-form-urlencoded');
-    //         res.header('Allow-Content-Type', 'application/json, x-www-form-urlencoded');
-    //         res.header('Access-Control-Allow-Accept', 'application/json,  x-www-form-urlencoded');
-    //         res.header('Allow-Accept', 'application/json, x-www-form-urlencoded'); 
-    //         return res.sendStatus(200);             
-    //     }
             if (!res.header('Access-Control-Allow-Headers', 'Content-Type, Accept , Content-Type, Application/json, Content-Type, Application/x-www-form-urlencoded')) {
                 return res.sendStatus(416);
             } else {
