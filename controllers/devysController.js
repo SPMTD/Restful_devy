@@ -45,15 +45,19 @@ function devysController(Devy) {
         let perPage = parseInt(req.query.limit);
         let page = parseInt(req.query.start);  
 
+        console.log(perPage);
+
         if (req.query.start === '' || req.query.limit === '') {
             perPage = 10;
             page = 0;
         }   
         Devy.find({})            
             // .skip((perPage * page) - perPage)
+            .skip((page + 1) * perPage)
             .limit(perPage)
             .exec(function (err, devy) {
-                Devy.countDocuments().exec(function (page, perPage) {                                        
+                Devy.countDocuments().exec(function (err, count) {        
+                    console.log("count is: " + count + " en perPage is: " + perPage);                                                    
                     if(err) {
                         return res.send(err);
                     };
@@ -77,7 +81,7 @@ function devysController(Devy) {
                         pagination: {                            
                             currentPage: Number(page),
                             currentItems: items.length,
-                            totalPages: Math.ceil(count/perPage),
+                            totalPages: Math.ceil(Number(count)/perPage),
                             totalItems: Number(count),
                             _links: {
                                 first: {
