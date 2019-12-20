@@ -15,8 +15,6 @@ app.use(function (req, res, next) {
     if (req.accepts(['application/json', 'application/x-www-form-urlencoded'])) {
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.setHeader('Allow-Origin', '*');
-        res.setHeader("Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         next()
     } else {
         res.status(406).send({
