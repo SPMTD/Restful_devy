@@ -85,7 +85,7 @@ function devysController(Devy) {
                             totalItems: Number(count),
                             _links: {
                                 first: {
-                                    page: 1,
+                                    page: Number(page),
                                     href: `${hostUrl}?start=${Number(page)}&limit=${perPage}`
                                 },
                                 last: {
