@@ -27,16 +27,16 @@ function devysController(Devy) {
             query.genre = req.query.genre;
         }
 
-        let countAll = Devy.find({}).exec(function(err, devy) {
-            Devy.countDocuments().exec(function(err){
-                if(err) {
-                    return res.send(err);
-                };
-                count = devy.length;
-                // console.log(count);
-                return count;
-            });
-        });
+        // let countAll = Devy.find({}).exec(function(err, devy) {
+        //     Devy.countDocuments().exec(function(err){
+        //         if(err) {
+        //             return res.send(err);
+        //         };
+        //         count = devy.length;
+        //         // console.log(count);
+        //         return count;
+        //     });
+        // });
 
         const hostUrl = `http://${req.headers.host}/api/devy/`
         let perPage = parseInt(req.query.limit);
@@ -49,7 +49,6 @@ function devysController(Devy) {
             page = 0;
         }   
         Devy.find({})            
-            // .skip((perPage * page) - perPage)
             .skip((page + 1) * perPage)
             .limit(perPage)
             .exec(function (err, devy) {
@@ -110,7 +109,7 @@ function devysController(Devy) {
     }
 
 
-    function options(req, res, err) {
+    function options(req, res, next) {
         if (!res.header('Access-Control-Allow-Headers', 'Content-Type, Accept, Content-Type, Application/json, Content-Type, Application/x-www-form-urlencoded')) {
             res.sendStatus(416);
         } else {
@@ -118,8 +117,8 @@ function devysController(Devy) {
             res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Allow-Origin', '*');
-            res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
             res.header('Allow-Header', 'Content-Type, Accept')
+            res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');            
             res.header('Access-Control-Allow-Content-Type', 'application/json,  x-www-form-urlencoded');
             res.header('Allow-Content-Type', 'application/json, x-www-form-urlencoded');
             res.header('Access-Control-Allow-Accept', 'application/json,  x-www-form-urlencoded');
