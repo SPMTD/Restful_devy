@@ -1,6 +1,3 @@
-// const paginate = require('express-paginate')
-
-
 function devysController(Devy) {
     function post(req, res) {
         const devy = new Devy(req.body);
