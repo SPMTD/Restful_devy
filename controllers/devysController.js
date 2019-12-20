@@ -30,6 +30,17 @@ function devysController(Devy) {
             query.genre = req.query.genre;
         }
 
+        let countAll = Devy.find({}).exec(function(err, devy) {
+            Devy.countDocuments().exec(function(err){
+                if(err) {
+                    return res.send(err);
+                };
+                count = devy.length;
+                // console.log(count);
+                return count;
+            });
+        });
+
         const hostUrl = `http://${req.headers.host}/api/devy/`
         let perPage = parseInt(req.query.limit);
         let page = parseInt(req.query.start);  
@@ -38,16 +49,14 @@ function devysController(Devy) {
             perPage = 10;
             page = 0;
         }   
-        console.log(perPage, page);
-        Devy.find({})    
-            .skip((perPage * page) - perPage)
+        Devy.find({})            
+            // .skip((perPage * page) - perPage)
             .limit(perPage)
             .exec(function (err, devy) {
-                Devy.countDocuments().exec(function (page, perPage) {
+                Devy.countDocuments().exec(function (page, perPage) {                                        
                     if(err) {
                         return res.send(err);
-                    }
-                    const count = devy.length;
+                    };
                     const items = [];                    
                     for(i = 0; i < devy.length; i++) {
                         const item = devy[i].toJSON();
